@@ -33,3 +33,40 @@ const render = require("./lib/htmlRenderer");
 // for further information. Be sure to test out each class and verify it generates an
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work! ```
+
+inquirer
+    .prompt([
+
+        { 
+            type: "input",
+            message: "Please enter the name of the team manager:",
+            name: "name",
+          },
+          {
+            type: "input",
+            message: "Manager's ID number:",
+            name: "id",
+          },
+          {
+            type: "input",
+            message: "Manager's emial:",
+            name: "email",
+          },
+          {
+            type: "input",
+            message: "Manager's office number:",
+            name: "officeNumber",
+          },
+    ]).then((answers) => {
+        const employees = []
+        const manager = new Manager (answers.name, answers.id, answers.email, answers.officeNumber)
+        employees.push(manager)
+        console.log(employees)
+        const data = render(employees)
+        fs.writeFile(outputPath, data, "utf8", (err) => {
+            if (err) throw err;
+            console.log('The file has been saved!');
+         })
+        
+
+    })
